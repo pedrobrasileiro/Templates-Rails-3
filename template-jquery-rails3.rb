@@ -4,6 +4,10 @@
 def after_bundler(&block); @after_blocks << block; end
 def say_wizard(text); say "\033[36m" + "wizard".rjust(10) + "\033[0m" + "    #{text}" end
 
+if yes?('Usa proxy? (yes/no): ')
+  proxy="http_proxy=$http_proxy"
+end
+
 # include gems
 gem 'slim'
 gem 'slim-rails'
@@ -25,9 +29,6 @@ gem 'ruby-debug19', :group=>[:development, :test]
 # initializer 'rspec.rb', <<-EOF
 #   Rails.application.config.generators.test_framework :rspec
 # EOF
-if yes?('Usa proxy? (yes/no): ')
-  proxy="http_proxy=$http_proxy"
-end
   
 inside "public/javascripts" do
   run "#{(proxy.empty? ? '' : proxy)} curl http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js > jquery.js"
