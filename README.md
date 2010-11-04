@@ -1,0 +1,1 @@
+Templates do Rails 3 que uso nas minhas apps
