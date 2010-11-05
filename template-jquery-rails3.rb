@@ -6,6 +6,7 @@ def say_wizard(text); say "\033[36m" + "wizard".rjust(10) + "\033[0m" + "    #{t
 
 if yes?('Usa proxy? (yes/no): ')
   proxy="http_proxy=$http_proxy"
+  proxy_s="https_proxy=$http_proxy"
 end
 
 # include gems
@@ -33,11 +34,11 @@ gem 'ruby-debug19', :group=>[:development, :test]
 inside "public/javascripts" do
   run "#{(proxy.empty? ? '' : proxy)} curl http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js > jquery.js"
   run "#{(proxy.empty? ? '' : proxy)} curl http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js > jquery-ui.js"
-  run "#{(proxy.empty? ? '' : proxy)} curl http://github.com/rails/jquery-ujs/raw/master/src/rails.js > rails.js"
+  run "#{(proxy_s.empty? ? '' : proxy_s)} curl https://github.com/rails/jquery-ujs/raw/master/src/rails.js > rails.js"
 end
 # get "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "public/javascripts/jquery.js"
 # get "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js", "public/javascripts/jquery-ui.js"
-# get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/rails.js"
+# get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/rails.js"
 
 gsub_file 'config/application.rb', '# config.action_view.javascript_expansions[:defaults] = %w(jquery rails)', '# config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui rails)'
 
